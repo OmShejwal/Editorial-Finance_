@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#393c55",
+              "on-primary-fixed": "#004075",
+              "secondary-dim": "#475467",
+              "on-background": "#143161",
+              "on-tertiary": "#fbf8ff",
+              "tertiary-fixed": "#dcddfe",
+              "surface-container": "#e9edff",
+              "secondary-container": "#d6e3fb",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#4c4e69",
+              "on-primary-fixed-variant": "#235d9a",
+              "surface-container-low": "#f1f3ff",
+              "surface-bright": "#f9f9ff",
+              "primary-fixed-dim": "#bbd6ff",
+              "tertiary": "#5b5d78",
+              "on-surface": "#143161",
+              "surface-container-high": "#e0e8ff",
+              "secondary": "#536073",
+              "secondary-fixed-dim": "#c8d5ec",
+              "on-error": "#fff7f6",
+              "tertiary-container": "#dcddfe",
+              "outline": "#617aae",
+              "inverse-primary": "#89bcff",
+              "error-container": "#fe8983",
+              "secondary-fixed": "#d6e3fb",
+              "surface": "#f9f9ff",
+              "primary-container": "#d3e4ff",
+              "on-primary": "#f6f7ff",
+              "on-secondary-container": "#465365",
+              "surface-dim": "#cbdaff",
+              "on-secondary": "#f8f8ff",
+              "tertiary-fixed-dim": "#cecfef",
+              "on-secondary-fixed-variant": "#4f5c70",
+              "on-tertiary-fixed-variant": "#555873",
+              "surface-container-highest": "#d8e2ff",
+              "outline-variant": "#99b2e9",
+              "primary-fixed": "#d3e4ff",
+              "error": "#9f403d",
+              "primary": "#27609d",
+              "error-dim": "#4e0309",
+              "primary-dim": "#145490",
+              "background": "#f9f9ff",
+              "inverse-on-surface": "#959db2",
+              "inverse-surface": "#060e1e",
+              "tertiary-dim": "#4f516c",
+              "surface-variant": "#d8e2ff",
+              "on-primary-container": "#135390",
+              "on-surface-variant": "#455f90",
+              "on-secondary-fixed": "#334052",
+              "on-error-container": "#752121",
+              "surface-tint": "#27609d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-slate-50 dark:bg-slate-950 flex flex-col h-full pt-20 pb-6 px-4">
+<div class="absolute right-0 top-0 h-full w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+<div class="mb-8">
+<h1 class="text-lg font-bold text-blue-900 dark:text-blue-50 user-name-display">Loading...</h1>
+<p class="text-xs text-slate-500 font-label user-role-display uppercase">...</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 cursor-pointer font-inter text-[0.875rem] font-medium rounded-lg" href="../admin_dashboard_overview/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 cursor-pointer font-inter text-[0.875rem] font-medium admin-only rounded-lg" href="../users.html">
+<span class="material-symbols-outlined">group</span>
+<span>Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm border-r-4 border-blue-700 dark:border-blue-400 hover:pl-2 transition-all duration-200 cursor-pointer font-inter text-[0.875rem] font-medium admin-only rounded-lg" href="../workflow_builder_admin/code.html">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Workflows</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 cursor-pointer font-inter text-[0.875rem] font-medium rounded-lg" href="../submit_expense_employee/code.html">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>My Expenses</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 cursor-pointer font-inter text-[0.875rem] font-medium manager-only rounded-lg" href="../approval_queue_manager/code.html">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Team Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 cursor-pointer font-inter text-[0.875rem] font-medium rounded-lg" href="../settings.html">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl flex items-center gap-3">
+<button onclick="api.logout()" class="w-full flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-error transition-colors">
+    <span class="material-symbols-outlined text-sm">logout</span>
+    <span class="text-sm font-medium">Logout</span>
+</button>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 py-3 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold tracking-tight text-blue-900 dark:text-blue-50 font-headline">Editorial Finance</span>
+<div class="hidden md:flex items-center gap-6 font-headline font-semibold text-sm">
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded" href="../admin_dashboard_overview/code.html">Dashboard</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold" href="code.html">Workflows</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../users.html">Users</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded manager-only" href="../approval_queue_manager/code.html">Approvals</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded" href="../submit_expense_employee/code.html">Submit Expense</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors">notifications</button>
+<button class="flex items-center gap-2 group">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">account_circle</span>
+<span class="text-sm font-semibold text-blue-900 dark:text-blue-100 font-manrope">Admin Portal</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full absolute bottom-0"></div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 p-8 min-h-screen">
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/router.js"></script>
+<script src="../js/workflow.js"></script>
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-2">
+<span>Admin</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span>Configuration</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary font-semibold">Workflow Designer</span>
+</nav>
+<h2 class="text-3xl font-extrabold text-on-surface tracking-tight">Enterprise Expense Approval</h2>
+<p class="text-on-surface-variant mt-1">Configure multi-level logic and automated routing for corporate spending.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors" onclick="window.location.reload()">Discard Changes</button>
+<button id="publishWorkflowBtn" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-primary to-primary-dim text-on-primary shadow-lg shadow-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">save</span>
+                    Publish Workflow
+                </button>
+</div>
+</div>
+
+<!-- Footer Stats / Summary -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-primary/5 p-6 rounded-xl border border-primary/10 flex items-center gap-5">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-2xl">timer</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Estimated Latency</p>
+<h5 class="text-xl font-extrabold text-on-surface">~ 48.5 Hours</h5>
+<p class="text-[10px] text-on-surface-variant mt-0.5">Workflow cycle for average request</p>
+</div>
+</div>
+<div class="bg-on-tertiary-container/[0.03] p-6 rounded-xl border border-outline-variant/10 flex items-center gap-5">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-tertiary shadow-sm">
+<span class="material-symbols-outlined text-2xl">security</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase text-on-surface-variant tracking-wider">Compliance Score</p>
+<h5 class="text-xl font-extrabold text-on-surface">94.8%</h5>
+<p class="text-[10px] text-on-surface-variant mt-0.5">Alignment with Sarbanes-Oxley</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<script>
+    const state = {
+        workflowType: 'Percentage',
+        steps: [],
+        rules: [], 
+        percentageRequired: 60,
+        selectedIndex: 0
+    };
+
+    // --- RENDERING ENGINE ---
+
+    function renderSteps() {
+        const container = document.getElementById('approvalSequenceContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (state.steps.length === 0) {
+            container.innerHTML = `
+                <div class="p-8 border-2 border-dashed border-outline-variant/20 rounded-xl text-center">
+                    <p class="text-xs text-on-surface-variant italic">No steps defined. Add your first approval step below.</p>
+                </div>
+            `;
+            return;
+        }
+
+        state.steps.forEach((step, index) => {
+            const isSelected = state.selectedIndex === index;
+            const stepEl = document.createElement('div');
+            stepEl.className = `relative flex items-start gap-4 z-10 cursor-pointer transition-all ${isSelected ? 'scale-105' : 'hover:scale-[1.02]'}`;
+            stepEl.onclick = (e) => {
+                if (e.target.closest('.remove-step-btn')) return;
+                selectStep(index);
+            };
+
+            stepEl.innerHTML = `
+                <div class="w-10 h-10 rounded-full ${isSelected ? 'bg-primary' : 'bg-outline-variant/40'} flex items-center justify-center text-white font-bold shadow-md transition-colors">${index + 1}</div>
+                <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm flex-1 border ${isSelected ? 'border-primary' : 'border-outline-variant/10'} group relative">
+                    <p class="text-[10px] uppercase font-bold ${isSelected ? 'text-primary' : 'text-on-surface-variant'} tracking-widest mb-1">${index === 0 ? 'Entry Point' : 'Sequential Step'}</p>
+                    <h4 class="font-bold text-sm">${step.role || 'Unconfigured'} Approval</h4>
+                    <div class="mt-2 flex items-center gap-2 text-xs text-on-surface-variant">
+                        <span class="material-symbols-outlined text-xs">group</span>
+                        <span>Threshold: $${(step.threshold || 0).toLocaleString()}</span>
+                    </div>
+                    <button onclick="removeStep(${index})" class="remove-step-btn absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 text-error hover:bg-error/10 rounded-lg transition-all">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                </div>
+            `;
+            container.appendChild(stepEl);
+        });
+        
+        renderConfig();
+    }
+
+    function renderConfig() {
+        const step = state.steps[state.selectedIndex];
+        const configHeader = document.getElementById('activeStepHeader');
+        const stepNameInput = document.getElementById('stepName');
+        const assigneeRoleSelect = document.getElementById('assigneeRole');
+        const thresholdInput = document.getElementById('stepThreshold');
+
+        if (!step) {
+            if (configHeader) configHeader.innerText = 'No Step Selected';
+            if (stepNameInput) stepNameInput.value = '';
+            if (assigneeRoleSelect) assigneeRoleSelect.value = '';
+            if (thresholdInput) thresholdInput.value = 0;
+            return;
+        }
+
+        if (configHeader) configHeader.innerText = `Step ${state.selectedIndex + 1}: ${step.role || 'New'} Configuration`;
+        if (stepNameInput) stepNameInput.value = step.role || '';
+        if (assigneeRoleSelect) assigneeRoleSelect.value = step.role || 'Manager';
+        if (thresholdInput) thresholdInput.value = step.threshold || 0;
+        
+        renderRules();
+        syncUI();
+    }
+
+    function renderRules() {
+        const container = document.getElementById('rulesListContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        
+        if (state.rules.length === 0) {
+            container.innerHTML = `<p class="text-[11px] text-on-surface-variant italic p-2">No custom branching rules defined.</p>`;
+            return;
+        }
+
+        state.rules.forEach((rule, index) => {
+            const ruleEl = document.createElement('div');
+            ruleEl.className = 'bg-surface p-4 rounded-xl border border-outline-variant/30 flex items-center gap-4';
+            ruleEl.innerHTML = `
+                <span class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold uppercase">IF</span>
+                <div class="flex-1 grid grid-cols-4 gap-3 text-xs font-bold">
+                    <span>${rule.field}</span>
+                    <span>${rule.operator}</span>
+                    <span>${rule.value}</span>
+                    <div class="flex items-center gap-2 text-primary">
+                        <span class="material-symbols-outlined text-sm">trending_flat</span>
+                        ${rule.action}
+                    </div>
+                </div>
+                <button onclick="removeRule(${index})" class="text-on-surface-variant/40 hover:text-error transition-colors">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            `;
+            container.appendChild(ruleEl);
+        });
+    }
+
+    function syncUI() {
+        // Sync Workflow Type Cards
+        document.querySelectorAll('.rule-card').forEach(card => {
+            const isSelected = card.dataset.rule === state.workflowType;
+            card.classList.toggle('border-primary', isSelected);
+            card.classList.toggle('bg-primary/5', isSelected);
+            card.classList.toggle('border-outline-variant/20', !isSelected);
+            
+            const indicator = card.querySelector('.radio-indicator');
+            if (indicator) {
+                indicator.classList.toggle('border-4', isSelected);
+                indicator.classList.toggle('border-primary', isSelected);
+                indicator.classList.toggle('bg-white', isSelected);
+                indicator.classList.toggle('border-2', !isSelected);
+                indicator.classList.toggle('border-outline-variant', !isSelected);
+            }
+        });
+
+        // Sync Percentage Slider
+        const pctContainer = document.getElementById('percentageContainer');
+        if (pctContainer) {
+            if (state.workflowType === 'Percentage') {
+                pctContainer.classList.remove('hidden');
+            } else {
+                pctContainer.classList.add('hidden');
+            }
+        }
+        
+        const pctRange = document.getElementById('percentageRange');
+        const pctLabel = document.getElementById('percentageLabel');
+        if (pctRange) pctRange.value = state.percentageRequired;
+        if (pctLabel) pctLabel.innerText = state.percentageRequired + '%';
+
+        // Dynamic Stats
+        const latency = (state.steps.length * 24.2 + (state.workflowType === 'UNANIMOUS' ? 12 : 0)).toFixed(1);
+        const compliance = (90 + (state.steps.length * 1.5) - (state.workflowType === 'FIRST_TO_ACT' ? 5 : 0)).toFixed(1);
+        
+        const stats = document.querySelectorAll('h5.text-xl.font-extrabold.text-on-surface');
+        if (stats.length >= 2) {
+            stats[0].innerText = `~ ${latency} Hours`;
+            stats[1].innerText = `${Math.min(100, compliance)}%`;
+        }
+    }
+
+    // --- ACTIONS ---
+
+    function selectStep(index) {
+        state.selectedIndex = index;
+        renderSteps();
+    }
+
+    function removeStep(index) {
+        state.steps.splice(index, 1);
+        if (state.selectedIndex >= state.steps.length) {
+            state.selectedIndex = Math.max(0, state.steps.length - 1);
+        }
+        renderSteps();
+    }
+
+    function removeRule(index) {
+        state.rules.splice(index, 1);
+        renderRules();
+    }
+
+    // --- INITIALIZATION ---
+
+    async function init() {
+        try {
+            const flow = await workflow.loadWorkflows();
+            if (flow) {
+                state.steps = flow.steps || [];
+                if (flow.conditionalRules) {
+                    state.workflowType = flow.conditionalRules.ruleType || 'Percentage';
+                    state.percentageRequired = flow.conditionalRules.percentageRequired || 100;
+                }
+            }
+            renderSteps();
+            syncUI();
+        } catch (e) {
+            console.error('Init error:', e);
+        }
+    }
+    init();
+
+    // --- EVENT LISTENERS ---
+
+    document.querySelectorAll('.rule-card').forEach(card => {
+        card.onclick = () => {
+            state.workflowType = card.dataset.rule;
+            syncUI();
+        };
+    });
+
+    const pctRangeInput = document.getElementById('percentageRange');
+    if (pctRangeInput) {
+        pctRangeInput.oninput = (e) => {
+            state.percentageRequired = parseInt(e.target.value);
+            const label = document.getElementById('percentageLabel');
+            if (label) label.innerText = state.percentageRequired + '%';
+        };
+    }
+
+    const appendBtn = document.getElementById('appendStepBtn');
+    if (appendBtn) {
+        appendBtn.onclick = () => {
+            const roleSelect = document.getElementById('assigneeRole');
+            const role = (roleSelect && roleSelect.value) || 'Manager';
+            
+            state.steps.push({
+                role: role,
+                order: state.steps.length + 1,
+                threshold: 0
+            });
+            
+            state.selectedIndex = state.steps.length - 1;
+            renderSteps();
+            ui.showToast(`Appended ${role} approval step`);
+        };
+    }
+
+    // Real-time update from config form
+    const roleSelectInput = document.getElementById('assigneeRole');
+    if (roleSelectInput) {
+        roleSelectInput.onchange = (e) => {
+            if (state.steps[state.selectedIndex]) {
+                state.steps[state.selectedIndex].role = e.target.value;
+                renderSteps();
+            }
+        };
+    }
+
+    const stepNameInput = document.getElementById('stepName');
+    if (stepNameInput) {
+        stepNameInput.oninput = (e) => {
+            if (state.steps[state.selectedIndex]) {
+                state.steps[state.selectedIndex].role = e.target.value;
+                renderSteps();
+            }
+        };
+    }
+
+    const thresholdInput = document.getElementById('stepThreshold');
+    if (thresholdInput) {
+        thresholdInput.oninput = (e) => {
+            if (state.steps[state.selectedIndex]) {
+                state.steps[state.selectedIndex].threshold = parseFloat(e.target.value) || 0;
+                renderSteps();
+            }
+        };
+    }
+
+    // Header Actions (Copy/Delete)
+    const copyBtn = document.getElementById('copyStepBtn');
+    if (copyBtn) {
+        copyBtn.onclick = () => {
+            if (!state.steps[state.selectedIndex]) return;
+            const copy = { ...state.steps[state.selectedIndex] };
+            state.steps.splice(state.selectedIndex + 1, 0, copy);
+            state.selectedIndex = state.selectedIndex + 1;
+            renderSteps();
+            ui.showToast('Step duplicated');
+        };
+    }
+
+    const delBtn = document.getElementById('deleteStepBtn');
+    if (delBtn) {
+        delBtn.onclick = () => {
+            if (!state.steps[state.selectedIndex]) return;
+            removeStep(state.selectedIndex);
+            ui.showToast('Step deleted');
+        };
+    }
+
+    const addRuleBtn = document.getElementById('addRuleBtn');
+    if (addRuleBtn) {
+        addRuleBtn.onclick = () => {
+            state.rules.push({
+                field: 'Total Amount',
+                operator: '>',
+                value: '$5,000',
+                action: 'Route to CFO'
+            });
+            renderRules();
+        };
+    }
+
+    const publishBtn = document.getElementById('publishWorkflowBtn');
+    if (publishBtn) {
+        publishBtn.onclick = async () => {
+            if (state.steps.length === 0) {
+                ui.showToast('Please add at least one approval step', 'error');
+                return;
+            }
+
+            const originalHtml = publishBtn.innerHTML;
+            publishBtn.innerHTML = 'Publishing...';
+            publishBtn.disabled = true;
+
+            try {
+                const payload = {
+                    steps: state.steps,
+                    conditionalRules: {
+                        ruleType: state.workflowType,
+                        percentageRequired: state.percentageRequired
+                    }
+                };
+                await workflow.save(payload.steps, payload.conditionalRules);
+                ui.showToast('Workflow Published Successfully');
+            } catch (e) {
+                ui.showToast(e.message, 'error');
+            } finally {
+                publishBtn.innerHTML = originalHtml;
+                publishBtn.disabled = false;
+            }
+        };
+    }
+</script>
+</body></html>

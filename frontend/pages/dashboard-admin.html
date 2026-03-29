@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | ERMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <nav class="container-fluid" id="main-nav"></nav>
+    <main class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="grid">
+            <article>
+                <header>Total Approved Expenses</header>
+                <h2 id="totalExpenses">$0.00</h2>
+            </article>
+            <article>
+                <header>Pending Approvals</header>
+                <h2 id="pendingApprovals">0</h2>
+            </article>
+            <article>
+                <header>Total Users</header>
+                <h2 id="totalUsers">0</h2>
+            </article>
+        </div>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

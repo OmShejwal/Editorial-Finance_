@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ERMS - Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+    <!-- TopNavBar (Shared Component) -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="flex items-center justify-between px-6 py-3 w-full">
+            <div class="flex items-center gap-8">
+                <span class="text-xl font-extrabold tracking-tight text-blue-900">Editorial Finance</span>
+                <div class="hidden md:flex items-center gap-6 font-semibold text-sm">
+                    <a class="text-slate-500 hover:text-primary transition-colors" href="admin_dashboard_overview/code.html">Dashboard</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors admin-only" href="users.html">Users</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors admin-only" href="workflow_builder_admin/code.html">Workflows</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors manager-only" href="approval_queue_manager/code.html">Approvals</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors" href="submit_expense_employee/code.html">Submit Expense</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors">notifications</button>
+                <button class="flex items-center gap-2 group">
+                    <span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">account_circle</span>
+                    <span class="text-sm font-semibold text-blue-900">Admin Portal</span>
+                </button>
+            </div>
+        </div>
+        <div class="bg-slate-100 h-[1px] w-full absolute bottom-0"></div>
+    </header>
+
+    <!-- Sidebar common layout -->
+    <aside class="fixed left-0 top-0 h-full w-64 z-40 bg-slate-50 flex flex-col pt-20 pb-6 px-4 border-r border-slate-200">
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100" href="admin_dashboard_overview/code.html">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 admin-only" href="users.html">
+                <span class="material-symbols-outlined">group</span> Users
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 admin-only" href="workflow_builder_admin/code.html">
+                <span class="material-symbols-outlined">account_tree</span> Workflows
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100" href="submit_expense_employee/code.html">
+                <span class="material-symbols-outlined">receipt_long</span> My Expenses
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 manager-only" href="approval_queue_manager/code.html">
+                <span class="material-symbols-outlined">fact_check</span> Team Approvals
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white text-blue-700 shadow-sm border-r-4 border-blue-700 font-medium" href="settings.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span> Settings
+            </a>
+        </nav>
+    </aside>
+
+    <main class="pl-64 pt-20 min-h-screen bg-surface p-8">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <header>
+                <h1 class="text-3xl font-extrabold text-on-surface tracking-tight">Account Settings</h1>
+                <p class="text-on-surface-variant mt-1">Manage your personal profile and security preferences.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Profile Section -->
+                <div class="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/10 space-y-6">
+                    <h3 class="text-xl font-bold font-headline">Profile Information</h3>
+                    <form id="profileForm" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Full Name</label>
+                            <input type="text" id="profileName" required class="w-full border-slate-200 rounded-md mt-1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Email Address</label>
+                            <input type="email" id="profileEmail" required class="w-full border-slate-200 rounded-md mt-1">
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:opacity-90 transition-opacity">Save Profile Changes</button>
+                    </form>
+                </div>
+
+                <!-- Password Section -->
+                <div class="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/10 space-y-6">
+                    <h3 class="text-xl font-bold font-headline">Security & Password</h3>
+                    <form id="passwordForm" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Current Password</label>
+                            <input type="password" id="oldPassword" required class="w-full border-slate-200 rounded-md mt-1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">New Password</label>
+                            <input type="password" id="newPassword" required class="w-full border-slate-200 rounded-md mt-1">
+                        </div>
+                        <button type="submit" class="w-full bg-surface-container-high text-on-surface py-3 rounded-xl font-bold hover:bg-surface-container-highest transition-colors">Update Password</button>
+                    </form>
+                </div>
+
+                <!-- Company Settings (Admin only) -->
+                <div id="companySettings" class="col-span-1 md:col-span-2 bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/10 space-y-6 hidden admin-only">
+                    <h3 class="text-xl font-bold font-headline">Company Configuration</h3>
+                    <form id="companyForm" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Organization Name</label>
+                            <input type="text" id="companyName" required class="w-full border-slate-200 rounded-md mt-1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Default Currency</label>
+                            <select id="defaultCurrency" class="w-full border-slate-200 rounded-md mt-1">
+                                <option value="USD">USD ($)</option>
+                                <option value="INR">INR (₹)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase">Region / Country</label>
+                            <input type="text" id="companyCountry" required class="w-full border-slate-200 rounded-md mt-1">
+                        </div>
+                        <div class="md:col-span-3">
+                            <button type="submit" class="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-opacity">Save Company Settings</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Load initial data
+        async function loadSettings() {
+            const user = auth.getUser();
+            document.getElementById('profileName').value = user.name;
+            document.getElementById('profileEmail').value = user.email;
+
+            if (user.role === 'Admin') {
+                document.getElementById('companySettings').classList.remove('hidden');
+                const company = await api.get('/company');
+                document.getElementById('companyName').value = company.name;
+                document.getElementById('defaultCurrency').value = company.defaultCurrency;
+                document.getElementById('companyCountry').value = company.country;
+            }
+        }
+
+        document.getElementById('profileForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const body = {
+                name: document.getElementById('profileName').value,
+                email: document.getElementById('profileEmail').value
+            };
+            try {
+                await api.patch('/users/profile', body);
+                ui.showToast('Profile updated successfully');
+                // Update local storage
+                const user = auth.getUser();
+                user.name = body.name;
+                user.email = body.email;
+                localStorage.setItem('user', JSON.stringify(user));
+                auth.updateUI();
+            } catch (err) { ui.showToast(err.message, 'error'); }
+        };
+
+        document.getElementById('passwordForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const body = {
+                oldPassword: document.getElementById('oldPassword').value,
+                newPassword: document.getElementById('newPassword').value
+            };
+            try {
+                await api.patch('/users/password', body);
+                ui.showToast('Password updated successfully');
+                e.target.reset();
+            } catch (err) { ui.showToast(err.message, 'error'); }
+        };
+
+        document.getElementById('companyForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const body = {
+                name: document.getElementById('companyName').value,
+                defaultCurrency: document.getElementById('defaultCurrency').value,
+                country: document.getElementById('companyCountry').value
+            };
+            try {
+                await api.patch('/company', body);
+                ui.showToast('Company settings updated successfully');
+            } catch (err) { ui.showToast(err.message, 'error'); }
+        };
+
+        loadSettings();
+    </script>
+</body>
+</html>

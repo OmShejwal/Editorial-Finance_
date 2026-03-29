@@ -1,0 +1,39 @@
+# Expense Reimbursement Management System (ERMS) - Project Requirements
+
+## Tech Stack
+- **Frontend:** React with Tailwind CSS
+- **Backend:** Node.js (Express)
+- **Database:** MongoDB
+- **Auth:** JWT-based
+- **OCR:** Tesseract.js integration for receipt scanning
+
+## Core User Roles & Permissions
+- **Admin:** System configuration, user management, workflow definition, approval overrides, full dashboard.
+- **Manager:** Team expense oversight, approval/rejection of team submissions, manager dashboard.
+- **Employee:** Expense submission (with OCR), receipt uploads, tracking personal history, employee dashboard.
+
+## Key Features & Workflows
+1. **Onboarding:** Automatic company creation, currency assignment via REST Countries API, admin user setup.
+2. **Expense Submission:** Multi-currency support, category/description/date, file upload, OCR auto-fill.
+3. **Approval Engine:** 
+   - Multi-level sequences (Manager → Finance → Director).
+   - Conditional logic: Percentage-based (e.g., 60% approval), specific approver override (CFO), or hybrid rules.
+4. **Currency Handling:** Integration with ExchangeRate-API for real-time conversion to company default.
+5. **Dashboards:** Role-specific views with status indicators and approval timelines.
+6. **Audit & Notifications:** Audit logs for all actions and in-app/email notifications.
+
+## Database Schema (Collections)
+- `Users`: Profile, role, manager ID, company ID.
+- `Companies`: Name, default currency, settings.
+- `Expenses`: Amount, currency, category, receipt URL, OCR data, status, user ID.
+- `ApprovalFlows`: Sequences, rules (percentage, overrides).
+- `ApprovalLogs`: Step-by-step history of approvals/rejections with comments.
+
+## Proposed Screen List
+1. **Admin Dashboard:** Overview of company-wide expenses, pending items, and quick stats.
+2. **User Management (Admin):** Interface to create users and define reporting lines.
+3. **Workflow Builder (Admin):** Visual or form-based tool to define approval sequences and rules.
+4. **Employee Dashboard:** Submission history and status tracking.
+5. **Expense Submission Form:** Comprehensive form with receipt upload and OCR results.
+6. **Manager Approval Queue:** List of pending team expenses with a detailed review/approval modal.
+7. **Expense Detail & Timeline:** Deep dive into a single expense showing the full audit trail.

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ERMS - User Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<!-- TopNavBar (Shared Component) -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="flex items-center justify-between px-6 py-3 w-full">
+            <div class="flex items-center gap-8">
+                <span class="text-xl font-extrabold tracking-tight text-blue-900">Editorial Finance</span>
+                <div class="hidden md:flex items-center gap-6 font-semibold text-sm">
+                    <a class="text-slate-500 hover:text-primary transition-colors" href="admin_dashboard_overview/code.html">Dashboard</a>
+                    <a class="text-blue-700 font-bold" href="users.html">Users</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors admin-only" href="workflow_builder_admin/code.html">Workflows</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors manager-only" href="approval_queue_manager/code.html">Approvals</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors" href="submit_expense_employee/code.html">Submit Expense</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors">notifications</button>
+                <button class="flex items-center gap-2 group">
+                    <span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">account_circle</span>
+                    <span class="text-sm font-semibold text-blue-900">Admin Portal</span>
+                </button>
+            </div>
+        </div>
+        <div class="bg-slate-100 h-[1px] w-full absolute bottom-0"></div>
+    </header>
+
+    <aside class="fixed left-0 top-0 h-full w-64 z-40 bg-slate-50 flex flex-col pt-20 pb-6 px-4 border-r border-slate-200">
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100" href="admin_dashboard_overview/code.html">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white text-blue-700 shadow-sm border-r-4 border-blue-700 font-medium admin-only" href="users.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span> Users
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 admin-only" href="workflow_builder_admin/code.html">
+                <span class="material-symbols-outlined">account_tree</span> Workflows
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100" href="submit_expense_employee/code.html">
+                <span class="material-symbols-outlined">receipt_long</span> My Expenses
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 manager-only" href="approval_queue_manager/code.html">
+                <span class="material-symbols-outlined">fact_check</span> Team Approvals
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100" href="settings.html">
+                <span class="material-symbols-outlined">settings</span> Settings
+            </a>
+        </nav>
+    </aside>
+
+    <main class="pl-64 pt-20 min-h-screen bg-surface p-8">
+        <div class="max-w-6xl mx-auto space-y-8">
+            <header class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-on-surface tracking-tight">User Management</h1>
+                    <p class="text-on-surface-variant mt-1">Manage institutional access, roles, and reporting lines.</p>
+                </div>
+                <button onclick="document.getElementById('userModal').classList.remove('hidden')" class="bg-primary text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-sm">person_add</span> Create New User
+                </button>
+            </header>
+
+            <div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/10 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-surface-container-low/50">
+                        <tr>
+                            <th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">User</th>
+                            <th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Role</th>
+                            <th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Reporting To</th>
+                            <th class="px-6 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userList" class="divide-y divide-outline-variant/5">
+                        <!-- Dynamic Content -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Create User Modal -->
+        <div id="userModal" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center hidden">
+            <div class="bg-white rounded-xl p-8 w-[450px] shadow-2xl">
+                <h3 class="text-xl font-bold mb-6">Create New User</h3>
+                <form id="createUserForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Full Name</label>
+                        <input type="text" id="newUserName" required class="w-full border-slate-200 rounded-md mt-1">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Email Address</label>
+                        <input type="email" id="newUserEmail" required class="w-full border-slate-200 rounded-md mt-1">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Role</label>
+                        <select id="newUserRole" class="w-full border-slate-200 rounded-md mt-1">
+                            <option value="Employee">Employee</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-3 mt-8">
+                        <button type="button" onclick="document.getElementById('userModal').classList.add('hidden')" class="flex-1 py-3 text-sm font-bold text-slate-600 hover:bg-slate-100 rounded-md">Cancel</button>
+                        <button type="submit" class="flex-1 py-3 text-sm font-bold bg-primary text-white rounded-md">Create User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/users.js"></script>
+    <script>
+        document.getElementById('createUserForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const body = {
+                name: document.getElementById('newUserName').value,
+                email: document.getElementById('newUserEmail').value,
+                role: document.getElementById('newUserRole').value,
+                password: 'password123'
+            };
+            await users.create(body);
+        };
+
+        // Initialize Users
+        users.loadUsers();
+    </script>
+</body>
+</html>

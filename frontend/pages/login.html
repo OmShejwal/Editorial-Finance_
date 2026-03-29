@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ERMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body { background-color: #f4f7f6; }
+        main { max-width: 400px; margin-top: 100px; }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <header>
+                <strong>Login to ERMS</strong>
+            </header>
+            <form id="loginForm">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="email@company.com" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                
+                <button type="submit" id="submitBtn">Login</button>
+            </form>
+            <footer>
+                Don't have an account? <a href="signup.html">Sign up</a>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('submitBtn');
+
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Logging in...';
+                
+                const response = await api.loginUser(email, password);
+                localStorage.setItem('token', response.accessToken);
+                localStorage.setItem('user', JSON.stringify(response.user));
+                
+                // Redirect based on role
+                const role = response.user.role;
+                window.location.href = `dashboard-${role.toLowerCase()}.html`;
+            } catch (error) {
+                alert(error.message);
+                btn.disabled = false;
+                btn.textContent = 'Login';
+            }
+        });
+    </script>
+</body>
+</html>

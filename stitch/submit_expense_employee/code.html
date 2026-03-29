@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Expense Submission | Editorial Finance</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#393c55",
+              "on-primary-fixed": "#004075",
+              "secondary-dim": "#475467",
+              "on-background": "#143161",
+              "on-tertiary": "#fbf8ff",
+              "tertiary-fixed": "#dcddfe",
+              "surface-container": "#e9edff",
+              "secondary-container": "#d6e3fb",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#4c4e69",
+              "on-primary-fixed-variant": "#235d9a",
+              "surface-container-low": "#f1f3ff",
+              "surface-bright": "#f9f9ff",
+              "primary-fixed-dim": "#bbd6ff",
+              "tertiary": "#5b5d78",
+              "on-surface": "#143161",
+              "surface-container-high": "#e0e8ff",
+              "secondary": "#536073",
+              "secondary-fixed-dim": "#c8d5ec",
+              "on-error": "#fff7f6",
+              "tertiary-container": "#dcddfe",
+              "outline": "#617aae",
+              "inverse-primary": "#89bcff",
+              "error-container": "#fe8983",
+              "secondary-fixed": "#d6e3fb",
+              "surface": "#f9f9ff",
+              "primary-container": "#d3e4ff",
+              "on-primary": "#f6f7ff",
+              "on-secondary-container": "#465365",
+              "surface-dim": "#cbdaff",
+              "on-secondary": "#f8f8ff",
+              "tertiary-fixed-dim": "#cecfef",
+              "on-secondary-fixed-variant": "#4f5c70",
+              "on-tertiary-fixed-variant": "#555873",
+              "surface-container-highest": "#d8e2ff",
+              "outline-variant": "#99b2e9",
+              "primary-fixed": "#d3e4ff",
+              "error": "#9f403d",
+              "primary": "#27609d",
+              "error-dim": "#4e0309",
+              "primary-dim": "#145490",
+              "background": "#f9f9ff",
+              "inverse-on-surface": "#959db2",
+              "inverse-surface": "#060e1e",
+              "tertiary-dim": "#4f516c",
+              "surface-variant": "#d8e2ff",
+              "on-primary-container": "#135390",
+              "on-surface-variant": "#455f90",
+              "on-secondary-fixed": "#334052",
+              "on-error-container": "#752121",
+              "surface-tint": "#27609d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #27609d 0%, #145490 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-slate-50 dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col pt-20 pb-6 px-4">
+<div class="text-lg font-bold text-blue-900 dark:text-blue-50 mb-8 font-headline">Finance Intel</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg" href="../admin_dashboard_overview/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium admin-only rounded-lg" href="../users.html">
+<span class="material-symbols-outlined">group</span>
+<span>Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium admin-only rounded-lg" href="../workflow_builder_admin/code.html">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Workflows</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm border-r-4 border-blue-700 dark:border-blue-400 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg" href="../submit_expense_employee/code.html">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>My Expenses</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium manager-only rounded-lg" href="../approval_queue_manager/code.html">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Team Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg" href="../settings.html">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 flex items-center gap-3 border-t border-slate-200 dark:border-slate-800">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOCdMi5dzTjaEHKPE_dLpvUa6-OvVCZRtACoC9EipnhkYWpO2GXNcbqtq_6YN3775o21X5JfG6pPrw3E26p8z7y_SW-nZpV_bdG1NhwqscbjS8TQzdEWhaxA8rJXwOCSkBj5ETIDTkNXuzBXYpHI4-TnwXY39bxUsphVDzW39r2YwZpNsVURscm3fEfhA9G2Jkb7jyHyD1mtSQyBolALooe9am0PAXnLOKuTR0NAPT5VYDdnlRXkT9SPMx430hEFZVjahMiGUjORM"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-bold text-on-surface truncate user-name-display">Loading...</span>
+<span class="text-xs text-on-surface-variant user-role-display">...</span>
+</div>
+<button onclick="api.logout()" class="ml-auto text-slate-400 hover:text-error transition-colors">
+    <span class="material-symbols-outlined text-sm">logout</span>
+</button>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none flex items-center justify-between px-6 py-3">
+<div class="flex items-center gap-8 ml-64">
+<span class="text-xl font-extrabold tracking-tight text-blue-900 dark:text-blue-50 font-headline">Editorial Finance</span>
+<div class="hidden md:flex items-center gap-6 font-headline font-semibold text-sm">
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded" href="../admin_dashboard_overview/code.html">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../workflow_builder_admin/code.html">Workflows</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../users.html">Users</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded manager-only" href="../approval_queue_manager/code.html">Approvals</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold" href="code.html">Submit Expense</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full absolute bottom-0 left-0"></div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-10 min-h-screen">
+<div class="max-w-6xl mx-auto">
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/router.js"></script>
+<script src="../js/expenses.js"></script>
+
+<!-- Header Section -->
+<div class="mb-10">
+<a href="../admin_dashboard_overview/code.html" class="flex items-center gap-2 text-on-surface-variant mb-2 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span class="text-xs font-label uppercase tracking-widest">Back to Dashboard</span>
+</a>
+<h2 class="text-3xl font-headline font-extrabold text-on-surface">Submit New Expense</h2>
+<p class="text-on-surface-variant font-body mt-1">Efficiently record and track your corporate spending with precision.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Form & OCR -->
+<div class="col-span-12 lg:col-span-7 space-y-8">
+<!-- Submission Form Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_40px_rgba(20,49,97,0.04)]">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-lg font-headline font-bold">Expense Details</h3>
+<div class="flex items-center gap-2 bg-primary-container px-3 py-1 rounded-full text-on-primary-container text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                                OCR Assisted
+                            </div>
+</div>
+<form id="expenseForm" class="space-y-6">
+<div class="grid grid-cols-2 gap-6">
+<!-- Amount -->
+<div class="col-span-2 md:col-span-1">
+<label class="block text-xs font-label font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Amount</label>
+<div class="relative group">
+<input id="amount" name="amount" class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all font-body font-semibold text-lg" placeholder="0.00" step="0.01" type="number" value=""/>
+<div id="ocrBadge" class="absolute right-3 top-1/2 -translate-y-1/2 text-primary font-bold bg-primary-container/30 px-2 py-0.5 rounded text-[10px] uppercase hidden">OCR Match</div>
+</div>
+</div>
+<!-- Currency -->
+<div class="col-span-2 md:col-span-1">
+<label class="block text-xs font-label font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Currency</label>
+<select id="originalCurrency" name="originalCurrency" class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all font-body">
+<option value="USD">USD - United States Dollar</option>
+<option value="EUR">EUR - Euro</option>
+<option value="GBP">GBP - British Pound</option>
+<option value="JPY">JPY - Japanese Yen</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Category -->
+<div class="col-span-2 md:col-span-1">
+<label class="block text-xs font-label font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Category</label>
+<select id="category" name="category" class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all font-body">
+<option value="Travel">Business Travel</option>
+<option value="Meals">Client Meals</option>
+<option value="Office">Office Supplies</option>
+<option value="Software">Software &amp; SaaS</option>
+</select>
+</div>
+<!-- Date -->
+<div class="col-span-2 md:col-span-1">
+<label class="block text-xs font-label font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Date</label>
+<div class="relative">
+<input id="date" name="date" class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all font-body" type="date" value=""/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none">
+<span class="material-symbols-outlined text-sm">event</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Description -->
+<div>
+<label class="block text-xs font-label font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Description</label>
+<textarea id="description" name="description" class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all font-body" placeholder="Describe the purpose of this expense..." rows="3"></textarea>
+</div>
+<!-- Vendor -->
+<div>
+<label class="block text-xs font-label font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Vendor</label>
+<input id="vendorName" name="vendorName" class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all font-body" placeholder="e.g. Starbucks, Uber..."/>
+</div>
+<!-- OCR Feedback Panel -->
+<div id="ocrStatusPanel" class="p-4 bg-surface-container-low rounded-lg border-l-4 border-primary/40 space-y-3 hidden">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-primary uppercase tracking-wider">OCR Intelligent Verification</span>
+<span id="ocrTime" class="text-[10px] text-on-surface-variant">Scanning complete</span>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-green-600 text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                        Vendor: <strong id="ocrVendor" class="text-on-surface">-</strong>
+</div>
+<div class="flex items-center gap-1.5 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-green-600 text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                        Type: <strong id="ocrType" class="text-on-surface">-</strong>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center justify-between pt-4">
+<button class="px-6 py-3 text-on-surface-variant font-bold text-sm hover:text-on-surface transition-colors duration-200">
+                            Save as Draft
+                        </button>
+<div class="flex gap-4">
+<button class="px-8 py-3 bg-white border border-outline-variant/30 text-on-surface font-bold text-sm rounded-md shadow-sm hover:bg-surface-container-low transition-all">
+                                Cancel
+                            </button>
+<button id="submitBtn" class="px-10 py-3 bg-primary-gradient text-white font-bold text-sm rounded-md shadow-[0_4px_12px_rgba(39,96,157,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                Submit Expense
+                            </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Context & Preview -->
+<div class="col-span-12 lg:col-span-5 space-y-8">
+<!-- Receipt Upload Area -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_12px_40px_rgba(20,49,97,0.04)] overflow-hidden group">
+<div class="p-6 border-b border-surface-container">
+<h3 class="text-sm font-headline font-bold text-on-surface uppercase tracking-widest">Receipt Proof</h3>
+</div>
+<div class="p-6">
+<!-- Visual Thumbnail / Drag-and-Drop Area -->
+<input type="file" id="receiptInput" class="hidden" accept="image/*,application/pdf">
+<div id="uploadArea" class="relative aspect-[3/4] rounded-lg border-2 border-dashed border-outline-variant/40 bg-surface-container-low flex flex-col items-center justify-center overflow-hidden transition-all group-hover:border-primary/40">
+<img id="receiptPreview" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAAJe4vr36jYssB-Dg0lybR6BFznPo3UqqlZnb1bfNplpdPjkwWMmi7DNdEXpJ8Cs3AZhF7-CHLD7Ci3oShSqTHoEt9xaCqa8GKVau3GReu-CvY5Q1Kqq0yguqwmD2ccGFoiTHMpn0A4QUw2ZGXcH9q5jXgcUKZoI5H30L_tXnXLN45wP64ZAHX7tqnVmitsvjSGLVBF-_QWzIZCB06Vt8b0wvt6CvasbCZkuLuyGDZFvIRtFGVR2HRrJ3nzFq9xguEmrJeLQMQiw"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+<button id="changeFileBtn" class="bg-white/90 px-4 py-2 rounded-full font-bold text-xs text-on-surface shadow-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">cached</span>
+                                        Change File
+                                    </button>
+</div>
+<div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-3 rounded-md flex items-center justify-between shadow-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary/10 rounded flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">image</span>
+</div>
+<div>
+<p id="fileNameDisplay" class="text-[11px] font-bold text-on-surface truncate w-32">No file selected</p>
+<p id="fileStatusDisplay" class="text-[9px] text-on-surface-variant uppercase font-label">Ready for upload</p>
+</div>
+</div>
+<span id="fileCheckIcon" class="material-symbols-outlined text-gray-400">check_circle</span>
+</div>
+</div>
+<p class="mt-4 text-[11px] text-center text-on-surface-variant font-label">
+                                Accepted formats: JPG, PNG, PDF (Max 10MB)
+                            </p>
+</div>
+</div>
+<script>
+    // Expense Submission Page Logic
+    const receiptInput = document.getElementById('receiptInput');
+    const uploadArea = document.getElementById('uploadArea');
+    const changeFileBtn = document.getElementById('changeFileBtn');
+    const receiptPreview = document.getElementById('receiptPreview');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    const fileStatusDisplay = document.getElementById('fileStatusDisplay');
+    const fileCheckIcon = document.getElementById('fileCheckIcon');
+    const submitBtn = document.getElementById('submitBtn');
+    const expenseForm = document.getElementById('expenseForm');
+
+    const ocrStatusPanel = document.getElementById('ocrStatusPanel');
+    const ocrBadge = document.getElementById('ocrBadge');
+    const ocrVendor = document.getElementById('ocrVendor');
+    const ocrType = document.getElementById('ocrType');
+
+    // Trigger file input
+    [uploadArea, changeFileBtn].forEach(el => {
+        el.addEventListener('click', () => receiptInput.click());
+    });
+
+    // Handle file selection and OCR
+    receiptInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Update UI
+        fileNameDisplay.textContent = file.name;
+        fileStatusDisplay.textContent = 'Processing with OCR...';
+        receiptPreview.src = URL.createObjectURL(file);
+        
+        try {
+            const data = await expenses.scanReceipt(file);
+            
+            // Show OCR success UI
+            ocrStatusPanel.classList.remove('hidden');
+            ocrBadge.classList.remove('hidden');
+            ocrVendor.textContent = data.vendorName || 'Unknown';
+            ocrType.textContent = data.expenseType || 'General';
+            
+            fileStatusDisplay.textContent = 'OCR Complete';
+            fileCheckIcon.classList.remove('text-gray-400');
+            fileCheckIcon.classList.add('text-green-600');
+            fileCheckIcon.style.fontVariationSettings = "'FILL' 1";
+
+        } catch (error) {
+            fileStatusDisplay.textContent = 'OCR Failed - Manual entry required';
+        }
+    });
+
+    // Handle form submission
+    submitBtn.addEventListener('click', async () => {
+        const file = receiptInput.files[0];
+        if (!file) {
+            ui.showToast('Please upload a receipt proof', 'error');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('receipt', file);
+        formData.append('amount', document.getElementById('amount').value);
+        formData.append('originalCurrency', document.getElementById('originalCurrency').value);
+        formData.append('category', document.getElementById('category').value);
+        formData.append('date', document.getElementById('date').value);
+        formData.append('description', document.getElementById('description').value);
+        formData.append('vendorName', document.getElementById('vendorName').value);
+
+        ui.showLoading(submitBtn);
+        await expenses.submit(formData);
+        ui.hideLoading(submitBtn);
+    });
+</script>
+<!-- Financial Context Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_40px_rgba(20,49,97,0.04)] border-t-4 border-primary">
+<h3 class="text-sm font-headline font-bold text-on-surface uppercase tracking-widest mb-6">Financial Context</h3>
+<div class="space-y-6">
+<!-- Default Currency -->
+<div class="flex items-center justify-between group">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Entity Default</p>
+<p class="text-sm font-bold text-on-surface">USD - US Dollar</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">account_balance</span>
+</div>
+</div>
+<hr class="border-surface-container"/>
+<!-- Exchange Rate -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Current Market Rate</p>
+<span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Live</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-extrabold text-on-surface">1.00 <span class="text-sm font-medium">EUR</span></span>
+<span class="text-on-surface-variant">=</span>
+<span class="text-2xl font-headline font-extrabold text-primary">1.09 <span class="text-sm font-medium">USD</span></span>
+</div>
+<p class="text-[10px] text-on-surface-variant font-label">Ref: XE Real-Time Feed • Last updated 2m ago</p>
+</div>
+<hr class="border-surface-container"/>
+<!-- Calculation Summary -->
+<div class="bg-surface-container-low p-4 rounded-lg">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[11px] text-on-surface-variant">Reimbursable Amount</span>
+<span class="text-xs font-bold text-on-surface">$128.50</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[11px] text-on-surface-variant">Policy Allowance</span>
+<span class="text-[10px] bg-primary-container px-2 rounded text-on-primary-container font-bold">IN POLICY</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Help / Guide -->
+<div class="flex items-start gap-3 p-4 bg-tertiary-container/30 rounded-xl">
+<span class="material-symbols-outlined text-tertiary">lightbulb</span>
+<div>
+<p class="text-xs font-bold text-on-tertiary-container">Pro Tip</p>
+<p class="text-[11px] text-on-tertiary-container/80 leading-relaxed">Ensure the vendor name and total price are clearly visible for the highest OCR accuracy.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </main>
+    <!-- Bottom Separation (Visual Anchor) -->
+    <div class="fixed bottom-0 left-64 right-0 h-1 bg-gradient-to-r from-primary to-transparent opacity-10"></div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/router.js"></script>
+    <script>
+        const expenses = {
+            async scanReceipt(file) {
+                const formData = new FormData();
+                formData.append('receipt', file);
+                return await api.post('/expenses/scan', formData);
+            },
+            async submit(body) {
+                return await api.post('/expenses', body);
+            }
+        };
+
+        // Expense Submission Page Logic
+        const receiptInput = document.getElementById('receiptInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const changeFileBtn = document.getElementById('changeFileBtn');
+        const receiptPreview = document.getElementById('receiptPreview');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const fileStatusDisplay = document.getElementById('fileStatusDisplay');
+        const fileCheckIcon = document.getElementById('fileCheckIcon');
+        const submitBtn = document.getElementById('submitBtn');
+        const expenseForm = document.getElementById('expenseForm');
+
+        const ocrStatusPanel = document.getElementById('ocrStatusPanel');
+        const ocrBadge = document.getElementById('ocrBadge');
+        const ocrVendor = document.getElementById('ocrVendor');
+        const ocrType = document.getElementById('ocrType');
+
+        // Trigger file input
+        if (uploadArea && changeFileBtn) {
+            [uploadArea, changeFileBtn].forEach(el => {
+                el.addEventListener('click', () => receiptInput.click());
+            });
+        }
+
+        // Handle file selection and OCR
+        if (receiptInput) {
+            receiptInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                // Update UI
+                fileNameDisplay.textContent = file.name;
+                fileStatusDisplay.textContent = 'Processing with OCR...';
+                receiptPreview.src = URL.createObjectURL(file);
+                
+                try {
+                    const data = await expenses.scanReceipt(file);
+                    
+                    // Show OCR success UI
+                    if (ocrStatusPanel) ocrStatusPanel.classList.remove('hidden');
+                    if (ocrBadge) ocrBadge.classList.remove('hidden');
+                    if (ocrVendor) ocrVendor.textContent = data.vendorName || 'Unknown';
+                    if (ocrType) ocrType.textContent = data.expenseType || 'General';
+                    
+                    fileStatusDisplay.textContent = 'OCR Complete';
+                    fileCheckIcon.classList.add('text-primary');
+                    
+                    // Auto-fill form
+                    if (data.amount) document.getElementById('amount').value = data.amount;
+                    if (data.date) document.getElementById('date').value = new Date(data.date).toISOString().split('T')[0];
+                    if (data.vendorName) document.getElementById('description').value = `Expense at ${data.vendorName}`;
+                    
+                    ui.showToast('Receipt scanned successfully');
+                } catch (err) {
+                    console.error(err);
+                    fileStatusDisplay.textContent = 'OCR Failed - Manual Entry Required';
+                    fileCheckIcon.classList.add('text-error');
+                }
+            });
+        }
+
+        // Handle Submit
+        if (submitBtn) {
+            submitBtn.onclick = async () => {
+                const amount = document.getElementById('amount').value;
+                const currency = document.getElementById('originalCurrency').value;
+                const category = document.getElementById('category').value;
+                const date = document.getElementById('date').value;
+                const description = document.getElementById('description').value;
+
+                if (!amount || !date) {
+                    ui.showToast('Please fill in amount and date', 'error');
+                    return;
+                }
+
+                ui.showLoading(submitBtn);
+                try {
+                    await expenses.submit({
+                        amount: parseFloat(amount),
+                        originalCurrency: currency,
+                        category,
+                        date,
+                        description
+                    });
+                    ui.showToast('Expense submitted for approval');
+                    setTimeout(() => window.location.reload(), 2000);
+                } catch (err) {
+                    ui.showToast(err.message, 'error');
+                } finally {
+                    ui.hideLoading(submitBtn);
+                }
+            };
+        }
+    </script>
+</body></html>

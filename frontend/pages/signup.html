@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | ERMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body { background-color: #f4f7f6; }
+        main { max-width: 500px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <header>
+                <strong>Create ERMS Account</strong>
+            </header>
+            <form id="signupForm">
+                <div class="grid">
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                    </div>
+                </div>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+                <div class="grid">
+                    <div>
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" name="companyName" placeholder="Acme Corp" required>
+                    </div>
+                    <div>
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" placeholder="USA" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn">Sign Up</button>
+            </form>
+            <footer>
+                Already have an account? <a href="login.html">Login</a>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                companyName: document.getElementById('companyName').value,
+                country: document.getElementById('country').value
+            };
+
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Creating account...';
+                
+                const response = await api.signupUser(userData);
+                localStorage.setItem('token', response.accessToken);
+                localStorage.setItem('user', JSON.stringify(response.user));
+                
+                // Auto-login and redirect to dashboard (signup creates Admin)
+                window.location.href = 'dashboard-admin.html';
+            } catch (error) {
+                alert(error.message);
+                btn.disabled = false;
+                btn.textContent = 'Sign Up';
+            }
+        });
+    </script>
+</body>
+</html>

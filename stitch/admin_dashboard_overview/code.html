@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editorial Finance - Admin Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#393c55",
+              "on-primary-fixed": "#004075",
+              "secondary-dim": "#475467",
+              "on-background": "#143161",
+              "on-tertiary": "#fbf8ff",
+              "tertiary-fixed": "#dcddfe",
+              "surface-container": "#e9edff",
+              "secondary-container": "#d6e3fb",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#4c4e69",
+              "on-primary-fixed-variant": "#235d9a",
+              "surface-container-low": "#f1f3ff",
+              "surface-bright": "#f9f9ff",
+              "primary-fixed-dim": "#bbd6ff",
+              "tertiary": "#5b5d78",
+              "on-surface": "#143161",
+              "surface-container-high": "#e0e8ff",
+              "secondary": "#536073",
+              "secondary-fixed-dim": "#c8d5ec",
+              "on-error": "#fff7f6",
+              "tertiary-container": "#dcddfe",
+              "outline": "#617aae",
+              "inverse-primary": "#89bcff",
+              "error-container": "#fe8983",
+              "secondary-fixed": "#d6e3fb",
+              "surface": "#f9f9ff",
+              "primary-container": "#d3e4ff",
+              "on-primary": "#f6f7ff",
+              "on-secondary-container": "#465365",
+              "surface-dim": "#cbdaff",
+              "on-secondary": "#f8f8ff",
+              "tertiary-fixed-dim": "#cecfef",
+              "on-secondary-fixed-variant": "#4f5c70",
+              "on-tertiary-fixed-variant": "#555873",
+              "surface-container-highest": "#d8e2ff",
+              "outline-variant": "#99b2e9",
+              "primary-fixed": "#d3e4ff",
+              "error": "#9f403d",
+              "primary": "#27609d",
+              "error-dim": "#4e0309",
+              "primary-dim": "#145490",
+              "background": "#f9f9ff",
+              "inverse-on-surface": "#959db2",
+              "inverse-surface": "#060e1e",
+              "tertiary-dim": "#4f516c",
+              "surface-variant": "#d8e2ff",
+              "on-primary-container": "#135390",
+              "on-surface-variant": "#455f90",
+              "on-secondary-fixed": "#334052",
+              "on-error-container": "#752121",
+              "surface-tint": "#27609d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 py-3 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold tracking-tight text-blue-900 dark:text-blue-50">Editorial Finance</span>
+<div class="hidden md:flex items-center gap-6 font-manrope font-semibold text-sm">
+<a class="text-blue-700 dark:text-blue-400 font-bold" href="code.html">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../workflow_builder_admin/code.html">Workflows</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../users.html">Users</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded manager-only" href="../approval_queue_manager/code.html">Approvals</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded" href="../submit_expense_employee/code.html">Submit Expense</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-10 pr-4 py-1.5 rounded-md bg-surface-container-low border-none text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search data points..." type="text"/>
+</div>
+<button id="notificationBtn" class="p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-all active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button id="profileBtn" class="p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-all active:opacity-80">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full absolute bottom-0"></div>
+</nav>
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-slate-50 dark:bg-slate-950 flex flex-col pt-20 pb-6 px-4">
+<div class="mb-8 px-2">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold overflow-hidden shadow-sm">
+<img alt="Org Logo" class="w-full h-full object-cover" data-alt="Geometric minimalist logo with deep blue shapes representing corporate stability and precision" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC-lZuTZKCAMZO49dABIF9NVKCWfFpynfmhEGo_w2WFJjyMCoKcEw_Ic9w24MyBRiavq-epABMNzIQJM5sNErDvI1zM57gj8JtctuekEA95wWZgZZOTin5o_wq7fbMBAdmuijTgqPkkpKfpV5ZA9nVzkR9BUWRpl-VLqcUysvceKv2C87KE6wfhx1s2OJ6Avcexj3hGXAD0_AGsK-TbHSZsR4lIp1TbnvRF04_IGz2HlmXLC3gktCFJuXSLFta2Nw16vRb_xcUONM"/>
+</div>
+<div>
+<p class="font-headline text-sm font-bold text-blue-900 dark:text-blue-50 leading-tight">Finance Intel</p>
+<p class="text-[0.6875rem] font-medium text-primary uppercase tracking-widest">Enterprise Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm border-r-4 border-blue-700 dark:border-blue-400 font-inter text-[0.875rem] font-medium transition-all duration-200" href="../admin_dashboard_overview/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-4 transition-all duration-200 ease-in-out font-inter text-[0.875rem] font-medium admin-only" href="../users.html">
+<span class="material-symbols-outlined">group</span>
+                Users
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-4 transition-all duration-200 ease-in-out font-inter text-[0.875rem] font-medium admin-only" href="../workflow_builder_admin/code.html">
+<span class="material-symbols-outlined">account_tree</span>
+                Workflows
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-4 transition-all duration-200 ease-in-out font-inter text-[0.875rem] font-medium" href="../submit_expense_employee/code.html">
+<span class="material-symbols-outlined">receipt_long</span>
+                My Expenses
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-4 transition-all duration-200 ease-in-out font-inter text-[0.875rem] font-medium manager-only" href="../approval_queue_manager/code.html">
+<span class="material-symbols-outlined">fact_check</span>
+                Team Approvals
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-4 transition-all duration-200 ease-in-out font-inter text-[0.875rem] font-medium" href="../settings.html">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-8 h-8 rounded-full bg-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQi_Ht5FPBFEbYM23iU0b1bA2uI7TUlfz6Ts27iLRjsTm5nroSPpa4aonu_D0gmCQS5KMLmHGJZu9q5EGmgktXQ3mHS3Mung-DQBudvpQmknLG4reOMc_MfNkoK1TLSfg3bHgoczIx-4u-tkLmaGg90meEWKAyj2Az4x4Ht49EQjRb5sWrJCDRmOL7_9Ih7YcGBD_yQMeFpiFa7sS5nlDojoDY-vb71ht6PDV76KtFyX0zJWmyWG_EECJ1nb5lvlzANv7cb0jK8rg"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-on-surface truncate user-name-display">Loading...</p>
+<p class="text-[10px] text-on-surface-variant uppercase user-role-display">...</p>
+</div>
+<button onclick="auth.logout()" class="ml-auto text-slate-400 hover:text-error transition-colors">
+    <span class="material-symbols-outlined text-sm">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<div class="bg-slate-200 dark:bg-slate-800 w-[1px] absolute right-0 top-0 h-full"></div>
+<!-- Main Content Canvas -->
+<main class="pl-64 pt-16 min-h-screen bg-surface">
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/router.js"></script>
+<script src="../js/dashboard.js"></script>
+<script src="../js/users.js"></script>
+<script src="../js/approvals.js"></script>
+
+<!-- Search Results Dropdown -->
+<div id="searchResults" class="fixed top-14 left-[calc(16rem+24px+256px+32px)] w-64 bg-white shadow-xl rounded-lg z-[60] hidden border border-slate-200">
+    <div class="p-2 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase">Users</div>
+    <div id="userResults" class="max-h-40 overflow-y-auto"></div>
+    <div class="p-2 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase">Expenses</div>
+    <div id="expenseResults" class="max-h-40 overflow-y-auto"></div>
+</div>
+
+<!-- Notifications Dropdown -->
+<div id="notificationDropdown" class="fixed top-14 right-16 w-80 bg-white shadow-xl rounded-lg z-[60] hidden border border-slate-200">
+    <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+        <span class="text-sm font-bold">Notifications</span>
+        <span class="text-[10px] text-primary cursor-pointer hover:underline">Mark all as read</span>
+    </div>
+    <div id="notificationList" class="max-h-96 overflow-y-auto">
+        <!-- Dynamic content -->
+    </div>
+</div>
+
+<!-- Profile Dropdown -->
+<div id="profileDropdown" class="fixed top-14 right-6 w-48 bg-white shadow-xl rounded-lg z-[60] hidden border border-slate-200">
+    <div class="p-4 border-b border-slate-100">
+        <div class="text-xs font-bold text-slate-800 user-name-display">Loading...</div>
+        <div class="text-[10px] text-slate-400 user-role-display">...</div>
+    </div>
+    <div class="p-2">
+        <div class="p-2 hover:bg-slate-50 cursor-pointer rounded text-xs flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">person</span> Profile
+        </div>
+        <div onclick="auth.logout()" class="p-2 hover:bg-red-50 text-red-600 cursor-pointer rounded text-xs flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">logout</span> Logout
+        </div>
+    </div>
+</div>
+
+<!-- Date Range Modal -->
+<div id="dateRangeModal" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl p-6 w-96 shadow-2xl">
+        <h3 class="text-lg font-bold mb-4">Select Date Range</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase">Start Date</label>
+                <input type="date" id="startDate" class="w-full border-slate-200 rounded-md mt-1">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase">End Date</label>
+                <input type="date" id="endDate" class="w-full border-slate-200 rounded-md mt-1">
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="document.getElementById('dateRangeModal').classList.add('hidden')" class="flex-1 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 rounded-md">Cancel</button>
+                <button onclick="dashboard.loadStats(document.getElementById('startDate').value, document.getElementById('endDate').value); document.getElementById('dateRangeModal').classList.add('hidden')" class="flex-1 py-2 text-sm font-bold bg-primary text-white rounded-md">Apply Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create User Modal -->
+<div id="userModal" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl p-8 w-[450px] shadow-2xl">
+        <h3 class="text-xl font-bold mb-6">Create New User</h3>
+        <form id="createUserForm" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase">Full Name</label>
+                <input type="text" id="newUserName" required class="w-full border-slate-200 rounded-md mt-1">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase">Email Address</label>
+                <input type="email" id="newUserEmail" required class="w-full border-slate-200 rounded-md mt-1">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase">Role</label>
+                <select id="newUserRole" class="w-full border-slate-200 rounded-md mt-1">
+                    <option value="Employee">Employee</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <div class="flex gap-3 mt-8">
+                <button type="button" onclick="document.getElementById('userModal').classList.add('hidden')" class="flex-1 py-3 text-sm font-bold text-slate-600 hover:bg-slate-100 rounded-md">Cancel</button>
+                <button type="submit" class="flex-1 py-3 text-sm font-bold bg-primary text-white rounded-md">Create User</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="p-8 max-w-7xl mx-auto space-y-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl font-extrabold text-on-surface tracking-tight">Executive Summary</h1>
+<p class="text-on-surface-variant font-medium mt-1">Fiscal Period: Q3 2023 | Oversight View</p>
+</div>
+<div class="flex items-center gap-3">
+<button onclick="document.getElementById('dateRangeModal').classList.remove('hidden')" class="flex items-center gap-2 px-4 py-2 bg-white text-on-surface font-semibold text-sm rounded-md shadow-sm border border-outline-variant/20 hover:bg-surface-container-low transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        Date Range
+                    </button>
+<button id="batchApproveBtn" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-primary-dim text-white font-semibold text-sm rounded-md shadow-md hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">upload</span>
+                        Batch Approve
+                    </button>
+</div>
+</header>
+<!-- Visual Analytics: Monthly Spend Velocity -->
+<section class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/10">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h3 class="text-xl font-extrabold text-on-surface tracking-tight font-headline">Monthly Spend Velocity</h3>
+            <p class="text-on-surface-variant text-xs mt-0.5">Real-time aggregation of approved corporate expenses</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-primary"></span>
+            <span class="text-xs font-bold text-on-surface-variant">Approved Spend</span>
+        </div>
+    </div>
+    <div class="h-[350px] w-full relative">
+        <canvas id="spendVelocityChart"></canvas>
+    </div>
+</section>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10 group">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 rounded-lg bg-primary-container/30 text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<p class="text-label-sm font-medium text-on-surface-variant uppercase tracking-wider mb-1">Total Expenses</p>
+<h3 id="totalExpenses" class="text-2xl font-extrabold text-on-surface">$0.00</h3>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 rounded-lg bg-tertiary-container/30 text-tertiary">
+<span class="material-symbols-outlined">hourglass_empty</span>
+</div>
+</div>
+<p class="text-label-sm font-medium text-on-surface-variant uppercase tracking-wider mb-1">Pending Approvals</p>
+<h3 id="pendingApprovals" class="text-2xl font-extrabold text-on-surface">0</h3>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 rounded-lg bg-secondary-container/30 text-secondary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</div>
+<p class="text-label-sm font-medium text-on-surface-variant uppercase tracking-wider mb-1">Total Users</p>
+<h3 id="totalUsers" class="text-2xl font-extrabold text-on-surface">0</h3>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 rounded-lg bg-outline-variant/10 text-outline">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+<p class="text-label-sm font-medium text-on-surface-variant uppercase tracking-wider mb-1">System Health</p>
+<h3 class="text-2xl font-extrabold text-on-surface">Active</h3>
+</div>
+</section>
+
+<script>
+    // Search Functionality
+    const searchInput = document.querySelector('input[placeholder="Search data points..."]');
+    const searchResults = document.getElementById('searchResults');
+    const userResults = document.getElementById('userResults');
+    const expenseResults = document.getElementById('expenseResults');
+
+    searchInput.addEventListener('input', async (e) => {
+        const query = e.target.value;
+        if (query.length < 2) {
+            searchResults.classList.add('hidden');
+            return;
+        }
+
+        try {
+            const data = await api.get(`/search?q=${query}`);
+            userResults.innerHTML = data.users.map(u => `
+                <div class="p-2 hover:bg-slate-50 cursor-pointer border-b border-slate-50">
+                    <div class="text-xs font-bold text-slate-700">${u.name}</div>
+                    <div class="text-[10px] text-slate-400">${u.role}</div>
+                </div>
+            `).join('');
+
+            expenseResults.innerHTML = data.expenses.map(e => `
+                <div class="p-2 hover:bg-slate-50 cursor-pointer border-b border-slate-50">
+                    <div class="text-xs font-bold text-slate-700">${e.category} - $${e.amount}</div>
+                    <div class="text-[10px] text-slate-400">${e.userId.name}</div>
+                </div>
+            `).join('');
+
+            searchResults.classList.remove('hidden');
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.classList.add('hidden');
+        }
+    });
+
+    // Create User Form
+    document.getElementById('createUserForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const body = {
+            name: document.getElementById('newUserName').value,
+            email: document.getElementById('newUserEmail').value,
+            role: document.getElementById('newUserRole').value,
+            password: 'password123' // Default password for new users
+        };
+        await users.create(body);
+    };
+
+    // Notifications
+    const notificationBtn = document.getElementById('notificationBtn');
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    const notificationList = document.getElementById('notificationList');
+
+    if (notificationBtn) {
+        notificationBtn.onclick = async (e) => {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('hidden');
+            if (!notificationDropdown.classList.contains('hidden')) {
+                try {
+                    const data = await api.get('/notifications');
+                    notificationList.innerHTML = data.map(n => `
+                        <div class="p-4 border-b border-slate-50 hover:bg-slate-50 cursor-pointer">
+                            <div class="text-xs font-bold text-slate-800">${n.title}</div>
+                            <div class="text-[11px] text-slate-500 mt-1">${n.message}</div>
+                            <div class="text-[9px] text-slate-400 mt-2">${new Date(n.createdAt).toLocaleString()}</div>
+                        </div>
+                    `).join('') || '<div class="p-8 text-center text-xs text-slate-400">No new notifications</div>';
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        };
+    }
+
+    document.addEventListener('click', () => {
+        if (notificationDropdown) notificationDropdown.classList.add('hidden');
+        const profileDropdown = document.getElementById('profileDropdown');
+        if (profileDropdown) profileDropdown.classList.add('hidden');
+    });
+
+    // Profile Dropdown
+    const profileBtn = document.getElementById('profileBtn');
+    if (profileBtn) {
+        profileBtn.onclick = (e) => {
+            e.stopPropagation();
+            const profileDropdown = document.getElementById('profileDropdown');
+            if (profileDropdown) profileDropdown.classList.toggle('hidden');
+        };
+    }
+
+    // Batch Approve
+    document.getElementById('batchApproveBtn').onclick = async () => {
+        const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
+        const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+        if (ids.length === 0) {
+            ui.showToast('Please select expenses to approve', 'error');
+            return;
+        }
+        if (confirm(`Approve ${ids.length} selected expenses?`)) {
+            await approvals.batchApprove(ids);
+            dashboard.loadRecentExpenses();
+        }
+    };
+
+    // Initialize Dashboard
+    dashboard.loadStats();
+</script>
+<!-- Main Interactive Section: Bento Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Recent Expenses Table (Left 2/3) -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="px-6 py-5 flex items-center justify-between bg-surface-container-low">
+<h2 class="font-headline font-bold text-lg text-on-surface">Recent Expenses</h2>
+<button class="text-primary text-sm font-bold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">User</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Date</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Category</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-right">Amount</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="group hover:bg-surface-container-high transition-colors cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-8 h-8 rounded-full bg-blue-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8n9SWEwbO-nnEZLqnQec9PuNBRcy2ICoXzFFFJVs0jRT435xlCxie9AQsvKtq1d1ZPJwdintHOqZcvCctPBonRA6R06_wXabzH2fScCs354TGDf_oi3v_TuVdIaSHK8AFMmfC_gnGTX__G8Tn2hGeLr-54OTSTOqgHrZ8bkMQU5ue2Sc5FH3PzHtdUjQDl7R2oL-QuXUvlOb7fr1UcBAyNpA13xN_D9zwpLoi7e-LOxg6axIiHrQGS3rUrol-D9jwwvOj04VR8x4"/>
+<div>
+<p class="text-sm font-semibold text-on-surface">Jane Doe</p>
+<p class="text-[10px] text-on-surface-variant">Marketing Executive</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-secondary-container text-on-secondary-container uppercase">Travel</span>
+</td>
+<td class="px-6 py-4 text-right">
+<p class="text-sm font-bold text-on-surface">$1,240.00</p>
+<p class="text-[10px] text-on-surface-variant">€1,170.12 Local</p>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 text-[10px] font-bold rounded-full bg-error-container text-on-error-container">Pending</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-high transition-colors cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-8 h-8 rounded-full bg-purple-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3CCs3n11pnxv2kUQT_KgasJwysfvIz3vWCKsVAIfJU8Uwk7X5k-GuerWnbd1D3vK0nGUuZ6OlnwiQ-iUsZ6y9CxNyUvkr_rXUmb8vQbfp_3UKVgHCZkdR27syRm1CIua8yI2e9-RXlY-078JoiMwUTeTjWoFQqk0AJevyXWNNnS0zIBgmk7HpXG0sXjiE4HWoL4OgI4nflzLNxgBcI4r6axQAeRaKqaup0NSVElSb1rI4DXhSB9CUgN_rczVbHI5P91Gxt3zOnk4"/>
+<div>
+<p class="text-sm font-semibold text-on-surface">Robert Smith</p>
+<p class="text-[10px] text-on-surface-variant">Sales Lead</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 23, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-tertiary-container text-on-tertiary-container uppercase">SaaS</span>
+</td>
+<td class="px-6 py-4 text-right">
+<p class="text-sm font-bold text-on-surface">$45.00</p>
+<p class="text-[10px] text-on-surface-variant">$45.00 Local</p>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 text-[10px] font-bold rounded-full bg-primary-container text-on-primary-container">Approved</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-high transition-colors cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-8 h-8 rounded-full bg-orange-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEYX63lff3wjujp1X-RaDgmbhvLCTgLaBl6hIY6fWM6m0THloqTu1sExy45biZK5DOFgAzwUvDnugM1xTYFO3lliKg05Z_dK5ljJK_HumAridtcGA-5UjRRedaEqhrjYYSdURjJAwyqPtjz-MZi3vbiRlRshkrX5TB9oScSlyNFo1-TH4FBBT6JsjrM3SKsGnudWRa8DD0YMiBxC3nbDY-xD5psKQJzMiAZFugFwb_9kgdiACKKDTqb5unQpxH6GVZPNyHxoYI_5s"/>
+<div>
+<p class="text-sm font-semibold text-on-surface">Alice Lo</p>
+<p class="text-[10px] text-on-surface-variant">Engineer</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 22, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-surface-container-highest text-on-surface-variant uppercase">Hardware</span>
+</td>
+<td class="px-6 py-4 text-right">
+<p class="text-sm font-bold text-on-surface">$2,499.00</p>
+<p class="text-[10px] text-on-surface-variant">£2,050.55 Local</p>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 text-[10px] font-bold rounded-full bg-primary-container text-on-primary-container">Approved</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Analytics Chart Placeholder -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-headline font-bold text-lg text-on-surface">Monthly Spend Velocity</h2>
+<p class="text-xs text-on-surface-variant">Institutional spending trend over 6 months</p>
+</div>
+<select class="text-xs border-none bg-surface-container-low rounded focus:ring-primary/20">
+<option>Last 6 Months</option>
+<option>Year to Date</option>
+</select>
+</div>
+<div class="h-48 flex items-end justify-between gap-4 px-4">
+<div class="flex-1 bg-surface-container-low rounded-t-lg group relative">
+<div class="absolute bottom-0 w-full bg-primary h-[40%] rounded-t-lg transition-all duration-500 hover:h-[45%]"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant uppercase">May</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg group relative">
+<div class="absolute bottom-0 w-full bg-primary h-[65%] rounded-t-lg transition-all duration-500 hover:h-[70%]"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant uppercase">Jun</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg group relative">
+<div class="absolute bottom-0 w-full bg-primary h-[55%] rounded-t-lg transition-all duration-500 hover:h-[60%]"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant uppercase">Jul</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg group relative">
+<div class="absolute bottom-0 w-full bg-primary h-[85%] rounded-t-lg transition-all duration-500 hover:h-[90%]"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant uppercase">Aug</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg group relative">
+<div class="absolute bottom-0 w-full bg-primary h-[70%] rounded-t-lg transition-all duration-500 hover:h-[75%]"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant uppercase">Sep</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg group relative">
+<div class="absolute bottom-0 w-full bg-primary-dim h-[95%] rounded-t-lg transition-all duration-500 hover:h-[100%] shadow-lg"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-primary uppercase">Oct</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions & Categories (Right 1/3) -->
+<div class="space-y-8">
+<!-- Quick Actions Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<h2 class="font-headline font-bold text-lg text-on-surface mb-6">Administrative Hub</h2>
+<div class="space-y-4">
+<button onclick="document.getElementById('userModal').classList.remove('hidden')" class="w-full flex items-center justify-between p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">person_add</span>
+<span class="text-sm font-bold text-on-surface">Create User</span>
+</div>
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button onclick="router.navigateTo('workflow_builder_admin/code.html')" class="w-full flex items-center justify-between p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">settings_suggest</span>
+<span class="text-sm font-bold text-on-surface">Configure Workflow</span>
+</div>
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button onclick="dashboard.exportData()" class="w-full flex items-center justify-between p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">database</span>
+<span class="text-sm font-bold text-on-surface">Export Data</span>
+</div>
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:translate-x-1 transition-transform">download</span>
+</button>
+</div>
+</div>
+<!-- Expenses by Category -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<h2 class="font-headline font-bold text-lg text-on-surface mb-6">Spend Allocation</h2>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant uppercase">Travel &amp; Transit</span>
+<span class="text-on-surface">42%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[42%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant uppercase">Software Licenses</span>
+<span class="text-on-surface">28%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[28%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant uppercase">Client Services</span>
+<span class="text-on-surface">15%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[15%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant uppercase">Misc. Supplies</span>
+<span class="text-on-surface">15%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant w-[15%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-surface-container-low">
+<div class="p-4 bg-primary-container/30 rounded-lg flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary uppercase">Strategy Insight</p>
+<p class="text-xs text-on-surface-variant">Travel spending is up 12% vs last quarter projection.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- System Health Badge -->
+<div class="bg-gradient-to-br from-on-surface to-inverse-surface p-6 rounded-xl text-white shadow-xl relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-[10px] font-bold text-inverse-on-surface uppercase tracking-[0.2em] mb-2">ERMS System Status</p>
+<h4 class="text-lg font-bold mb-4">Integrity: Optimal</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span>
+<p class="text-[11px] font-medium opacity-80">Last audit sync: 4 minutes ago</p>
+</div>
+</div>
+<!-- Abstract texture background -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<img alt="Texture" class="w-full h-full object-cover" data-alt="Subtle dark blue geometric mesh pattern creating a high-tech architectural depth effect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVy-fLWKnirSdYSzD-B8xCryhEjtdD1tNxIkhQ_THEESE7EzEFn_EYwh_O5eVCLdBXpwFYamrOzgBq_HUTqo1UNKxdMSdzaqNvU3NAe-FcJ-B0_-NSzr5ZIItKOcQ_P00YjL6GHD1ALTuQ2ee7ciIfZWfcCl52-z60rsuJrVV4aXsU6EinJEyyy79IjTewZo0TKpYCmiWM1Zr3Hhb2adom2YCrH9tYo4kad_7bKCPX_Bmdlab8SZOZ5IvBpmuORbkn0eQCvRvohUs"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Padding for spacing -->
+<div class="h-20"></div>
+</main>
+</body></html>

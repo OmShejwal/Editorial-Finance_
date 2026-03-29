@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editorial Finance - Team Approvals</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#393c55",
+                        "on-primary-fixed": "#004075",
+                        "secondary-dim": "#475467",
+                        "on-background": "#143161",
+                        "on-tertiary": "#fbf8ff",
+                        "tertiary-fixed": "#dcddfe",
+                        "surface-container": "#e9edff",
+                        "secondary-container": "#d6e3fb",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#4c4e69",
+                        "on-primary-fixed-variant": "#235d9a",
+                        "surface-container-low": "#f1f3ff",
+                        "surface-bright": "#f9f9ff",
+                        "primary-fixed-dim": "#bbd6ff",
+                        "tertiary": "#5b5d78",
+                        "on-surface": "#143161",
+                        "surface-container-high": "#e0e8ff",
+                        "secondary": "#536073",
+                        "secondary-fixed-dim": "#c8d5ec",
+                        "on-error": "#fff7f6",
+                        "tertiary-container": "#dcddfe",
+                        "outline": "#617aae",
+                        "inverse-primary": "#89bcff",
+                        "error-container": "#fe8983",
+                        "secondary-fixed": "#d6e3fb",
+                        "surface": "#f9f9ff",
+                        "primary-container": "#d3e4ff",
+                        "on-primary": "#f6f7ff",
+                        "on-secondary-container": "#465365",
+                        "surface-dim": "#cbdaff",
+                        "on-secondary": "#f8f8ff",
+                        "tertiary-fixed-dim": "#cecfef",
+                        "on-secondary-fixed-variant": "#4f5c70",
+                        "on-tertiary-fixed-variant": "#555873",
+                        "surface-container-highest": "#d8e2ff",
+                        "outline-variant": "#99b2e9",
+                        "primary-fixed": "#d3e4ff",
+                        "error": "#9f403d",
+                        "primary": "#27609d",
+                        "error-dim": "#4e0309",
+                        "primary-dim": "#145490",
+                        "background": "#f9f9ff",
+                        "inverse-on-surface": "#959db2",
+                        "inverse-surface": "#060e1e",
+                        "tertiary-dim": "#4f516c",
+                        "surface-variant": "#d8e2ff",
+                        "on-primary-container": "#135390",
+                        "on-surface-variant": "#455f90",
+                        "on-secondary-fixed": "#334052",
+                        "on-error-container": "#752121",
+                        "surface-tint": "#27609d"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (from JSON) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-slate-50 dark:bg-slate-950 flex flex-col pt-20 pb-6 px-4">
+<div class="bg-slate-200 dark:bg-slate-800 w-[1px] absolute right-0 top-0 h-full"></div>
+<div class="mb-8">
+<h1 class="text-lg font-bold text-blue-900 dark:text-blue-50">Finance Intel</h1>
+<p class="text-xs text-slate-500">Enterprise Admin</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg" href="../admin_dashboard_overview/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg admin-only" href="../users.html">
+<span class="material-symbols-outlined">group</span>
+<span>Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg admin-only" href="../workflow_builder_admin/code.html">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Workflows</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg" href="../submit_expense_employee/code.html">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>My Expenses</span>
+</a>
+<!-- Active Navigation for current page -->
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-sm border-r-4 border-blue-700 dark:border-blue-400 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-bold rounded-lg manager-only" href="../approval_queue_manager/code.html">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Team Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-200 ease-in-out cursor-pointer active:scale-98 font-inter text-[0.875rem] font-medium rounded-lg" href="../settings.html">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl flex items-center gap-3">
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-on-surface truncate user-name-display">Loading...</p>
+<p class="text-[10px] text-on-surface-variant uppercase user-role-display">...</p>
+</div>
+<button onclick="api.logout()" class="ml-auto text-slate-400 hover:text-error transition-colors">
+    <span class="material-symbols-outlined text-sm">logout</span>
+</button>
+</div>
+</aside>
+<!-- TopNavBar (from JSON) -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 py-3 w-full max-w-[calc(100%-16rem)] ml-auto">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold tracking-tight text-blue-900 dark:text-blue-50 font-headline">Editorial Finance</span>
+<div class="hidden md:flex items-center gap-6 font-headline font-semibold text-sm">
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded" href="../admin_dashboard_overview/code.html">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../workflow_builder_admin/code.html">Workflows</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded admin-only" href="../users.html">Users</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold" href="code.html">Approvals</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 px-2 py-1 rounded" href="../submit_expense_employee/code.html">Submit Expense</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full absolute bottom-0"></div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-20 min-h-screen flex flex-col">
+<div class="flex-1 p-8 lg:p-12 space-y-8">
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/router.js"></script>
+<script src="../js/approvals.js"></script>
+
+<!-- Header Section -->
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface font-headline">Team Approvals</h2>
+<p class="text-on-surface-variant font-body text-sm">Review and manage pending expense requests from your direct reports.</p>
+</div>
+<div class="flex gap-2">
+<div class="bg-primary-container text-on-primary-container px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[1rem]">pending_actions</span>
+                        <span id="pendingCountDisplay">0</span> Pending
+                    </div>
+</div>
+</div>
+<!-- Dashboard Content Layout: List and Detail Side-by-Side -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Pending List (60%) -->
+<div class="col-span-12 xl:col-span-7 space-y-4">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-wider text-on-surface-variant font-label">Requestor</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-wider text-on-surface-variant font-label">Category</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-wider text-on-surface-variant font-label">Date</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-wider text-on-surface-variant font-label text-right">Amount</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-wider text-on-surface-variant font-label"></th>
+</tr>
+</thead>
+<tbody id="approvalList" class="divide-y-0">
+<!-- Dynamic Content -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- Detail View / Side Panel (40%) -->
+<div id="detailPanel" class="col-span-12 xl:col-span-5 bg-surface-container-lowest rounded-xl shadow-lg border-t-4 border-primary p-0 flex flex-col max-h-[calc(100vh-12rem)] overflow-hidden hidden">
+<div class="p-6 border-b border-surface-container-low flex justify-between items-center">
+<h3 class="text-lg font-bold font-headline text-on-surface">Expense Details</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors"><span class="material-symbols-outlined text-on-surface-variant">open_in_new</span></button>
+<button id="closeDetailBtn" class="p-2 hover:bg-surface-container-low rounded-lg transition-colors"><span class="material-symbols-outlined text-on-surface-variant">close</span></button>
+</div>
+</div>
+<div id="detailContent" class="flex-1 overflow-y-auto p-6 space-y-8 no-scrollbar">
+<!-- Dynamic Content -->
+</div>
+<!-- Actions Panel -->
+<div class="p-6 bg-surface-container-low space-y-4">
+<div class="space-y-2">
+<label class="text-[0.6875rem] font-bold text-on-surface-variant font-label uppercase" for="comments">Approver Comments (Required for Rejection)</label>
+<textarea class="w-full bg-surface-container-lowest border-none rounded-md text-sm font-body focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400" id="comments" placeholder="Add a note for the requestor..." rows="2"></textarea>
+</div>
+<div class="flex gap-3">
+<button id="rejectBtn" class="flex-1 py-3 px-4 rounded-md border border-error text-error text-sm font-bold hover:bg-error-container/10 transition-colors active:scale-95">
+                                Reject
+                            </button>
+<button id="approveBtn" class="flex-[2] py-3 px-4 rounded-md bg-gradient-to-r from-primary to-primary-dim text-on-primary text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95">
+                                Approve Request
+                            </button>
+</div>
+</div>
+</div>
+<script>
+    document.getElementById('approveBtn').onclick = async () => {
+        if (!approvals.currentExpense) return;
+        const comment = document.getElementById('comments').value;
+        const btn = document.getElementById('approveBtn');
+        ui.showLoading(btn);
+        await approvals.approve(approvals.currentExpense._id, comment);
+        ui.hideLoading(btn);
+        document.getElementById('comments').value = '';
+    };
+
+    document.getElementById('rejectBtn').onclick = async () => {
+        if (!approvals.currentExpense) return;
+        const comment = document.getElementById('comments').value;
+        if (!comment) {
+            ui.showToast('Comments are required for rejection', 'error');
+            return;
+        }
+        const btn = document.getElementById('rejectBtn');
+        ui.showLoading(btn);
+        await approvals.reject(approvals.currentExpense._id, comment);
+        ui.hideLoading(btn);
+        document.getElementById('comments').value = '';
+    };
+
+    document.getElementById('closeDetailBtn').onclick = () => {
+        document.getElementById('detailPanel').classList.add('hidden');
+    };
+
+    // Initialize Approvals
+    approvals.loadPendingApprovals();
+</script>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only Filter) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md flex justify-around items-center py-4 border-t border-slate-100 z-50">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-[10px] font-bold">Approvals</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-bold">Profile</span>
+</button>
+</div>
+</body></html>
