@@ -12,14 +12,14 @@ router.post('/:expenseId/approve', restrictTo('Admin', 'Manager'), approveExpens
 router.post('/:expenseId/reject', restrictTo('Admin', 'Manager'), rejectExpense);
 router.post('/:expenseId/escalate', restrictTo('Manager'), escalateExpense);
 
-// Only Admin can configure or override
-router.get('/configure', restrictTo('Admin'), (req, res, next) => {
+// Admin or Manager can configure or override
+router.get('/configure', restrictTo('Admin', 'Manager'), (req, res, next) => {
   const ApprovalFlow = require('../models/ApprovalFlow');
   ApprovalFlow.findOne({ companyId: req.user.companyId })
     .then(flow => res.json(flow || { steps: [], conditionalRules: {} }))
     .catch(next);
 });
-router.post('/configure', restrictTo('Admin'), configureWorkflow);
-router.post('/:expenseId/override', restrictTo('Admin'), overrideApproval);
+router.post('/configure', restrictTo('Admin', 'Manager'), configureWorkflow);
+router.post('/:expenseId/override', restrictTo('Admin', 'Manager'), overrideApproval);
 
 module.exports = router;

@@ -9,8 +9,8 @@ router.use(protect);
 router.patch('/profile', updateProfile);
 router.patch('/password', updatePassword);
 
-// Admin only
-router.use(restrictTo('Admin'));
+// Admin/Manager only
+router.use(restrictTo('Admin', 'Manager'));
 router.post('/create', createUser);
 router.get('/', getUsers);
 router.patch('/:id/role', updateRole);

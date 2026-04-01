@@ -5,6 +5,6 @@ const { protect, restrictTo } = require('../middlewares/authMiddleware');
 
 router.use(protect);
 router.get('/', getCompany);
-router.patch('/', restrictTo('Admin'), updateCompany);
+router.patch('/', restrictTo('Admin', 'Manager'), updateCompany);
 
 module.exports = router;

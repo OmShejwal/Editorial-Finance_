@@ -1,7 +1,7 @@
 {
   "name": "erms-backend",
   "version": "1.0.0",
-  "description": "Expense Reimbursement Management System Backend",
+  "description": "DYP Expense Reimbursement Management System Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -18,8 +18,8 @@ exports.getPendingApprovals = async (req, res) => {
 
     // Filter expenses based on whether the current user is the correct approver
     const filteredExpenses = await Promise.all(expenses.map(async (expense) => {
-      // Admin sees everything
-      if (userRole === 'Admin') return expense;
+      // Manager (Executive) sees everything
+      if (userRole === 'Manager') return expense;
 
       const workflowStatus = await evaluateWorkflow(expense._id);
       

@@ -119,8 +119,8 @@ exports.getEmployeeDashboard = async (req, res) => {
     res.json({
       myTotalApproved: myExpenses[0] ? myExpenses[0].total : 0,
       pendingCount,
-      companyCurrency: user.companyId.defaultCurrency,
-      role: 'Employee'
+      companyCurrency: (user && user.companyId) ? user.companyId.defaultCurrency : 'USD',
+      role: user ? user.role : 'Employee'
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -136,12 +136,8 @@ exports.getMonthlySpend = async (req, res) => {
 
     const matchQuery = { status: 'Approved' };
     
-    if (userRole === 'Admin') {
+    if (userRole === 'Admin' || userRole === 'Manager') {
       matchQuery.companyId = companyId;
-    } else if (userRole === 'Manager') {
-      const teamMembers = await User.find({ managerId: userId }).select('_id');
-      const teamIds = teamMembers.map(m => m._id);
-      matchQuery.userId = { $in: teamIds };
     } else {
       matchQuery.userId = userId;
     }
@@ -190,6 +186,42 @@ exports.exportData = async (req, res) => {
     res.setHeader('Content-Type', 'text/csv');
     res.setHeader('Content-Disposition', 'attachment; filename=report.csv');
     res.send(csv);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getCategoryAllocation = async (req, res) => {
+  try {
+    const companyId = req.user.companyId;
+    const { startDate, endDate } = req.query;
+
+    const matchQuery = { companyId, status: 'Approved' };
+    if (startDate || endDate) {
+      matchQuery.date = {};
+      if (startDate) matchQuery.date.$gte = new Date(startDate);
+      if (endDate) matchQuery.date.$lte = new Date(endDate);
+    }
+
+    const allocation = await Expense.aggregate([
+      { $match: matchQuery },
+      {
+        $group: {
+          _id: "$category",
+          total: { $sum: "$convertedAmount" }
+        }
+      },
+      { $sort: { total: -1 } }
+    ]);
+
+    const grandTotal = allocation.reduce((sum, item) => sum + item.total, 0);
+    const data = allocation.map(item => ({
+      category: item._id,
+      total: item.total,
+      percentage: grandTotal > 0 ? Math.round((item.total / grandTotal) * 100) : 0
+    }));
+
+    res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

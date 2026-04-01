@@ -19,8 +19,14 @@ const companyRoutes = require('./routes/companyRoutes');
 const app = express();
 
 // Security Middlewares
-app.use(helmet());
-app.use(cors());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,7 +53,7 @@ app.use('/api/company', companyRoutes);
 
 // Root route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Expense Reimbursement Management System API' });
+  res.json({ message: 'Welcome to DYP Expense Reimbursement Management System API' });
 });
 
 // Error Handling Middleware
