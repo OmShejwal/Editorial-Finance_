@@ -44,3 +44,7 @@ A fully functional Expense Management System with automated workflows, real-time
 
 ---
 Developed by [Om Shejwal](https://github.com/OmShejwal)
+
+## Recent Changes
+
+- Pushed new and modified files to the repository.
